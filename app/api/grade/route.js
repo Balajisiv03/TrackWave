@@ -1,7 +1,9 @@
-import React from "react";
+import { db } from "@/utils/dbConfig";
+import { GRADES } from "@/utils/schema";
 
-const route = () => {
-  return <div>route</div>;
-};
+import { NextResponse } from "next/server";
 
-export default route;
+export async function GET(req) {
+  const result = await db.select().from(GRADES);
+  return NextResponse.json(result);
+}

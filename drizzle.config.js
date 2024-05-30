@@ -3,6 +3,6 @@ export default {
   dialect: "postgresql",
   // driver: "pg",
   dbCredentials: {
-    url: process.env.NEXT_PUBLIC_DATABASE_URL,
+    url: "postgresql://attendencetracker_owner:5ozQLaCsSUw1@ep-blue-band-a5z31miq.us-east-2.aws.neon.tech/attendencetracker?sslmode=require",
   },
 };
