@@ -15,7 +15,7 @@ import GlobalApi from "@/app/_services/GlobalApi";
 import { toast } from "sonner";
 import { LoaderIcon } from "lucide-react";
 
-const AddNewStudents = () => {
+const AddNewStudents = ({ refreshData }) => {
   const [open, setOpen] = useState(false);
   const [grades, setGrades] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -45,6 +45,7 @@ const AddNewStudents = () => {
       console.log("--", resp);
       if (resp.data) {
         reset();
+        refreshData();
         setOpen(false);
         toast("New sudent added!");
       }
