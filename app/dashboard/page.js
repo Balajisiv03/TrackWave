@@ -6,6 +6,8 @@ import GradeSelection from "../_components/GradeSelection";
 import GlobalApi from "../_services/GlobalApi";
 import moment from "moment";
 import StatusList from "./_components/StatusList";
+import { BarChartComponent } from "./_components/BarChartComponent";
+import PieChartComponent from "./_components/PieChartComponent";
 
 function Dashboard() {
   const { setTheme } = useTheme();
@@ -13,14 +15,17 @@ function Dashboard() {
   const [selectedMonth, setSelectedMonth] = useState();
   const [selectedGrade, setSelectedGrade] = useState();
   const [attendenceList, setAttendenceList] = useState();
+  const [totalPresentData, setTotalPresentData] = useState([]);
 
   useEffect(() => {
     // setTheme("light");
     getStudentAttendence();
+    getTotalPresentCountByDay();
   }, [selectedGrade]);
 
   useEffect(() => {
     getStudentAttendence();
+    getTotalPresentCountByDay();
   }, [selectedMonth]);
 
   //used to get attendence for givn month and grade
@@ -30,6 +35,15 @@ function Dashboard() {
       moment(selectedMonth).format("MM/yyyy")
     ).then((resp) => {
       setAttendenceList(resp.data);
+    });
+  };
+
+  const getTotalPresentCountByDay = () => {
+    GlobalApi.TotalPresentCountByDay(
+      moment(selectedMonth).format("MM/yyyy"),
+      selectedGrade
+    ).then((resp) => {
+      setTotalPresentData(resp.data);
     });
   };
 
@@ -44,6 +58,17 @@ function Dashboard() {
         </div>
       </div>
       <StatusList attendenceList={attendenceList} />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="md:col-span-2">
+          <BarChartComponent
+            attendenceList={attendenceList}
+            totalPresentData={totalPresentData}
+          />
+        </div>
+        <div>
+          <PieChartComponent attendenceList={attendenceList} />
+        </div>
+      </div>
     </div>
   );
 }
