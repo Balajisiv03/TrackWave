@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@kinde-oss/kinde-auth-nextjs": "^2.2.10",
+    "@neondatabase/serverless": "^0.9.3",
     "@planetscale/database": "^1.18.0",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-dialog": "^1.0.5",
